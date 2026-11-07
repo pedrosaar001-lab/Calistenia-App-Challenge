@@ -191,7 +191,7 @@
         // --- BASE DE DATOS DE TARJETAS (CON ERRORES ORTOGRÁFICOS Y GRAMATICALES CORREGIDOS) ---
         const cardsData = [
             // AMARILLAS
-            { id: 1, color: 'yellow', title: 'Peso Rusa Tabata', desc: '40 Giros sobre la cabeza\n40 Mazazos\n10 Biceps\n10 Tríceps\n10 Giros de tronco\n* Repetir 6 veces' },
+            { id: 1, color: 'yellow', title: 'Peso Rusa Tabata', desc: '40 Giros sobre la cabeza\n40 Mazazos\n10 Bíceps\n10 Tríceps\n10 Giros de tronco\n* Repetir 6 veces' },
             { id: 2, color: 'yellow', title: '30 Veces', desc: '1. Burpee Marina\n2. Sentadillas\n3. Salto payaso\n* Realizar 30 repeticiones de cada uno' },
             { id: 3, color: 'yellow', title: 'AMRAP 10 Minutos', desc: '5 Burpees\n5 Lagartijas\n5 Caminadores\n5 Sentadillas\n5 Sentadillas con salto' },
             { id: 4, color: 'yellow', title: 'AMRAP 10 Minutos (Piernas y Core)', desc: '5 Sentadillas con salto\n10 Zancadas\n5 Sentadillas abiertas\n10 Arqueos\n10 Toques de rodilla' },
@@ -204,7 +204,7 @@
             { id: 9, color: 'pink', title: 'Rutina de Parque', desc: '2 Dominadas\n4 Flexiones\n2 Flexiones diamante\n[2-4-2] +2\n[3-5-3]\n[4-6-4]' },
             { id: 10, color: 'pink', title: 'Reto Planchas', desc: '30s Plancha lateral izquierda\n30s Plancha levantar brazo/pierna\n30s Plancha frontal\n30s Plancha con patada\n30s Plancha lateral crunch!\n* Realizar 4 rondas' },
             { id: 11, color: 'pink', title: 'Escalera Cruzada Flexión / Sit-up', desc: '20 Flexiones - 1 Sit-up\n19 Flexiones - 2 Sit-ups\n...\n02 Flexiones - 19 Sit-ups\n01 Flexión - 20 Sit-ups' },
-            { id: 12, color: 'pink', title: 'Reto de Abdomen', desc: '10 Escalador inversos\n10 Chalacas\n10 Saltos en "L"\n15 V-sit extendidos\n* Repetir 4 series' },
+            { id: 12, color: 'pink', title: 'Reto de Abdomen', desc: '10 Tobilleros inversos\n10 Chalacas\n10 Saltos en "L"\n15 V-sit extendidos\n* Repetir 4 series' },
 
             // MENTA / VERDE
             { id: 13, color: 'mint', title: 'AMRAP 10 Minutos', desc: '5 Sentadillas Duende\n10 Remos\n10 Peso muerto rumano\n10 Flexiones' },
@@ -296,3 +296,371 @@
             }
             document.getElementById('streakCount').innerText = streak + ' días 🔥';
         }
+
+        // --- SELECCIONAR TARJETA Y IR AL TIMER ---
+        function selectCardForTimer(cardId) {
+            const card = cardsData.find(c => c.id === cardId);
+            if (!card) return;
+
+            // Mostrar rutina debajo del timer
+            document.getElementById('activeRoutineCard').classList.remove('hidden');
+            document.getElementById('activeRoutineTitle').innerText = card.title;
+            document.getElementById('activeRoutineDesc').innerText = card.desc;
+
+            let tagCol = 'bg-yellow-500/20 text-yellow-300';
+            if (card.color === 'pink') tagCol = 'bg-pink-500/20 text-pink-300';
+            if (card.color === 'mint') tagCol = 'bg-emerald-500/20 text-emerald-300';
+            if (card.color === 'blue') tagCol = 'bg-blue-500/20 text-blue-300';
+            document.getElementById('activeRoutineTag').className = `text-xs font-black uppercase px-3 py-1 rounded-xl ${tagCol}`;
+
+            // Determinar modo sugerido según título de tarjeta
+            if (card.title.toLowerCase().includes('emom')) {
+                setTimerMode('emom');
+            } else if (card.title.toLowerCase().includes('tabata') || card.title.toLowerCase().includes('reto planchas')) {
+                setTimerMode('interval');
+            } else {
+                setTimerMode('amrap');
+            }
+
+            switchTab('timer');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function clearActiveRoutine() {
+            document.getElementById('activeRoutineCard').classList.add('hidden');
+        }
+
+        // --- RENDERIZADO DEL CALENDARIO ---
+        function renderCalendar() {
+            const container = document.getElementById('calendarWeeksContainer');
+            container.innerHTML = '';
+
+            calendarStructure.forEach(w => {
+                let weekHtml = `
+                    <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 space-y-4 shadow-lg">
+                        <h3 class="text-xl font-heading font-black text-amber-400 flex items-center gap-2">
+                            <i class="fa-solid fa-flag-checkered"></i> Semana ${w.week}
+                        </h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-7 gap-4">
+                `;
+
+                w.days.forEach(d => {
+                    const isDone = !!completedDays[d.day];
+                    let cardObj = d.cardId ? cardsData.find(c => c.id === d.cardId) : null;
+                    let cardColorClass = 'border-slate-800 bg-slate-950/50';
+                    let badgeColor = 'bg-slate-800 text-slate-300';
+
+                    if (cardObj) {
+                        if (cardObj.color === 'yellow') { cardColorClass = 'border-yellow-500/40 bg-yellow-500/5 hover:border-yellow-400'; badgeColor = 'bg-yellow-500/20 text-yellow-300'; }
+                        else if (cardObj.color === 'pink') { cardColorClass = 'border-pink-500/40 bg-pink-500/5 hover:border-pink-400'; badgeColor = 'bg-pink-500/20 text-pink-300'; }
+                        else if (cardObj.color === 'mint') { cardColorClass = 'border-emerald-500/40 bg-emerald-500/5 hover:border-emerald-400'; badgeColor = 'bg-emerald-500/20 text-emerald-300'; }
+                        else if (cardObj.color === 'blue') { cardColorClass = 'border-blue-500/40 bg-blue-500/5 hover:border-blue-400'; badgeColor = 'bg-blue-500/20 text-blue-300'; }
+                    }
+
+                    if (d.rest) {
+                        cardColorClass = 'border-purple-500/30 bg-purple-500/5';
+                        badgeColor = 'bg-purple-500/20 text-purple-300';
+                    }
+
+                    weekHtml += `
+                        <div onclick="${cardObj ? `selectCardForTimer(${cardObj.id})` : ''}" class="border rounded-2xl p-4 flex flex-col justify-between transition-all cursor-pointer hover:scale-[1.02] ${cardColorClass} ${isDone ? 'ring-2 ring-emerald-500/60 bg-emerald-950/20' : ''}">
+                            <div class="space-y-2">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-xs font-black px-2.5 py-1 rounded-lg ${badgeColor}">Día ${d.day}</span>
+                                    <button onclick="toggleDay(${d.day}, event)" class="w-8 h-8 rounded-xl border flex items-center justify-center transition-all ${isDone ? 'bg-emerald-500 border-emerald-400 text-slate-950 font-black' : 'border-slate-700 bg-slate-900 hover:border-amber-400'}">
+                                        ${isDone ? '<i class="fa-solid fa-check text-sm"></i>' : ''}
+                                    </button>
+                                </div>
+                                <h4 class="text-sm font-black text-white leading-snug">${d.title}</h4>
+                                ${cardObj ? `<p class="text-xs text-slate-300 whitespace-pre-line font-mono mt-2 font-bold">${cardObj.desc}</p>` : '<p class="text-xs text-purple-300 italic mt-2 font-medium">Descanso activo y movilidad.</p>'}
+                            </div>
+                        </div>
+                    `;
+                });
+
+                weekHtml += `</div></div>`;
+                container.innerHTML += weekHtml;
+            });
+            updateStats();
+        }
+
+        // --- RENDERIZADO BIBLIOTECA TARJETAS ---
+        function renderCards(filter = 'all') {
+            const grid = document.getElementById('cardsGrid');
+            grid.innerHTML = '';
+
+            const filtered = filter === 'all' ? cardsData : cardsData.filter(c => c.color === filter);
+
+            filtered.forEach(c => {
+                let borderCol = 'border-yellow-500/40 bg-yellow-500/5 hover:border-yellow-400';
+                let tagCol = 'bg-yellow-500/20 text-yellow-300';
+                if (c.color === 'pink') { borderCol = 'border-pink-500/40 bg-pink-500/5 hover:border-pink-400'; tagCol = 'bg-pink-500/20 text-pink-300'; }
+                else if (c.color === 'mint') { borderCol = 'border-emerald-500/40 bg-emerald-500/5 hover:border-emerald-400'; tagCol = 'bg-emerald-500/20 text-emerald-300'; }
+                else if (c.color === 'blue') { borderCol = 'border-blue-500/40 bg-blue-500/5 hover:border-blue-400'; tagCol = 'bg-blue-500/20 text-blue-300'; }
+
+                grid.innerHTML += `
+                    <div onclick="selectCardForTimer(${c.id})" class="border rounded-3xl p-6 flex flex-col justify-between ${borderCol} shadow-xl hover:scale-[1.03] transition-all cursor-pointer">
+                        <div class="space-y-4">
+                            <div class="flex justify-between items-center">
+                                <span class="text-xs uppercase font-black px-3 py-1 rounded-xl ${tagCol}">Tarjeta #${c.id}</span>
+                                <i class="fa-solid fa-play text-slate-400 text-sm"></i>
+                            </div>
+                            <h3 class="text-lg font-heading font-black text-white">${c.title}</h3>
+                            <div class="bg-slate-950/80 p-4 rounded-2xl border border-slate-800">
+                                <p class="text-xs text-slate-200 whitespace-pre-line font-mono leading-relaxed font-bold">${c.desc}</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function filterCards(color) {
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.className = "filter-btn px-4 py-2 rounded-xl text-xs font-black bg-slate-900 text-slate-400 border border-slate-800";
+            });
+            event.target.className = "filter-btn px-4 py-2 rounded-xl text-xs font-black bg-amber-500 text-slate-950";
+            renderCards(color);
+        }
+
+        // --- NAVEGACIÓN ---
+        function switchTab(viewName) {
+            ['calendar', 'cards', 'timer'].forEach(v => {
+                document.getElementById(`view-${v}`).classList.add('hidden');
+                document.getElementById(`tab-${v}`).className = "tab-btn px-5 py-2.5 rounded-xl text-sm font-black transition-all text-slate-400 hover:text-white";
+            });
+            document.getElementById(`view-${viewName}`).classList.remove('hidden');
+            document.getElementById(`tab-${viewName}`).className = "tab-btn px-5 py-2.5 rounded-xl text-sm font-black transition-all bg-amber-500 text-slate-950 shadow-md";
+        }
+
+        // --- WEB AUDIO API & TEMPORIZADOR MULTI-MODO ---
+        let audioCtx = null;
+        function initAudio() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+        }
+
+        function playBeep(freq = 440, duration = 0.15, type = 'sine') {
+            try {
+                initAudio();
+                if (audioCtx.state === 'suspended') audioCtx.resume();
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = type;
+                osc.frequency.value = freq;
+                gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start();
+                osc.stop(audioCtx.currentTime + duration);
+            } catch(e) {}
+        }
+
+        let timerMode = 'emom'; // 'emom', 'amrap', 'interval'
+        let timerInterval = null;
+        let isRunning = false;
+        let timeLeft = 600;
+        let totalDuration = 600;
+
+        // Variables específicas para el Modo Intervalos
+        let workTime = 30;
+        let restTime = 10;
+        let totalRounds = 8;
+        let currentRound = 1;
+        let isWorkPhase = true;
+
+        function setTimerMode(mode) {
+            timerMode = mode;
+            pauseTimer();
+
+            document.getElementById('mode-emom-btn').className = mode === 'emom' ? "py-3 rounded-xl font-black text-xs sm:text-sm transition-all bg-amber-500 text-slate-950 shadow-md" : "py-3 rounded-xl font-black text-xs sm:text-sm transition-all text-slate-400 hover:text-white";
+            document.getElementById('mode-amrap-btn').className = mode === 'amrap' ? "py-3 rounded-xl font-black text-xs sm:text-sm transition-all bg-amber-500 text-slate-950 shadow-md" : "py-3 rounded-xl font-black text-xs sm:text-sm transition-all text-slate-400 hover:text-white";
+            document.getElementById('mode-interval-btn').className = mode === 'interval' ? "py-3 rounded-xl font-black text-xs sm:text-sm transition-all bg-amber-500 text-slate-950 shadow-md" : "py-3 rounded-xl font-black text-xs sm:text-sm transition-all text-slate-400 hover:text-white";
+
+            const configContainer = document.getElementById('timerConfig');
+
+            if (mode === 'emom') {
+                configContainer.innerHTML = `
+                    <div>
+                        <label class="block text-xs font-black text-slate-400 mb-1">Minutos Totales</label>
+                        <input type="number" id="emomMin" value="10" min="1" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-2.5 text-white font-black text-lg">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-black text-slate-400 mb-1">Segundos por Minuto</label>
+                        <input type="number" id="emomSec" value="60" min="10" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-2.5 text-white font-black text-lg">
+                    </div>
+                `;
+                timeLeft = 600;
+            } else if (mode === 'amrap') {
+                configContainer.innerHTML = `
+                    <div class="col-span-2">
+                        <label class="block text-xs font-black text-slate-400 mb-1">Tiempo AMRAP (Minutos)</label>
+                        <input type="number" id="amrapMin" value="10" min="1" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-2.5 text-white font-black text-lg">
+                    </div>
+                `;
+                timeLeft = 600;
+            } else if (mode === 'interval') {
+                configContainer.innerHTML = `
+                    <div>
+                        <label class="block text-xs font-black text-slate-400 mb-1">Trabajo (seg)</label>
+                        <input type="number" id="intWork" value="30" min="5" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-2.5 text-white font-black text-lg">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-black text-slate-400 mb-1">Descanso (seg)</label>
+                        <input type="number" id="intRest" value="10" min="0" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-2.5 text-white font-black text-lg">
+                    </div>
+                    <div class="col-span-2 sm:col-span-1">
+                        <label class="block text-xs font-black text-slate-400 mb-1">Rondas Totales</label>
+                        <input type="number" id="intRounds" value="8" min="1" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-2.5 text-white font-black text-lg">
+                    </div>
+                `;
+                workTime = 30;
+                restTime = 10;
+                totalRounds = 8;
+                currentRound = 1;
+                isWorkPhase = true;
+                timeLeft = workTime;
+            }
+            updateTimerDisplay();
+        }
+
+        function updateTimerDisplay() {
+            let mins = Math.floor(timeLeft / 60);
+            let secs = timeLeft % 60;
+            document.getElementById('timerDisplay').innerText = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+
+            if (timerMode === 'emom') {
+                let secPerRound = parseInt(document.getElementById('emomSec')?.value) || 60;
+                let totalMin = parseInt(document.getElementById('emomMin')?.value) || 10;
+                let r = Math.floor((totalDuration - timeLeft) / secPerRound) + 1;
+                if (r > totalMin) r = totalMin;
+                document.getElementById('timerSubDisplay').innerText = `EMOM • Minuto ${r} de ${totalMin}`;
+                document.getElementById('roundDisplay').innerText = `Siguiente cambio en: ${timeLeft % secPerRound || secPerRound}s`;
+            } else if (timerMode === 'amrap') {
+                document.getElementById('timerSubDisplay').innerText = `AMRAP • Conteo Regresivo`;
+                document.getElementById('roundDisplay').innerText = `¡Completa tantas rondas como puedas!`;
+            } else if (timerMode === 'interval') {
+                document.getElementById('timerSubDisplay').innerText = isWorkPhase ? `🔥 ¡TRABAJO! (Ronda ${currentRound}/${totalRounds})` : `🧘 DESCANSO (Ronda ${currentRound}/${totalRounds})`;
+                document.getElementById('timerSubDisplay').className = isWorkPhase ? "text-base font-black text-amber-400 uppercase tracking-wider" : "text-base font-black text-emerald-400 uppercase tracking-wider";
+                document.getElementById('roundDisplay').innerText = `Ronda ${currentRound} de ${totalRounds}`;
+            }
+        }
+
+        function startTimer() {
+            if (isRunning) return;
+
+            if (timerMode === 'emom') {
+                let mins = parseInt(document.getElementById('emomMin').value) || 10;
+                let secs = parseInt(document.getElementById('emomSec').value) || 60;
+                if (timeLeft === totalDuration || timeLeft <= 0) {
+                    totalDuration = mins * secs;
+                    timeLeft = totalDuration;
+                }
+            } else if (timerMode === 'amrap') {
+                let mins = parseInt(document.getElementById('amrapMin').value) || 10;
+                if (timeLeft === totalDuration || timeLeft <= 0) {
+                    totalDuration = mins * 60;
+                    timeLeft = totalDuration;
+                }
+            } else if (timerMode === 'interval') {
+                workTime = parseInt(document.getElementById('intWork').value) || 30;
+                restTime = parseInt(document.getElementById('intRest').value) || 10;
+                totalRounds = parseInt(document.getElementById('intRounds').value) || 8;
+                if (currentRound > totalRounds) {
+                    currentRound = 1;
+                    isWorkPhase = true;
+                    timeLeft = workTime;
+                }
+            }
+
+            isRunning = true;
+            document.getElementById('startBtn').classList.add('hidden');
+            document.getElementById('pauseBtn').classList.remove('hidden');
+
+            timerInterval = setInterval(() => {
+                if (timerMode === 'interval') {
+                    if (timeLeft > 1) {
+                        timeLeft--;
+                        if (timeLeft <= 3) playBeep(587, 0.1, 'sine');
+                    } else {
+                        if (isWorkPhase) {
+                            if (restTime > 0) {
+                                isWorkPhase = false;
+                                timeLeft = restTime;
+                                playBeep(440, 0.3, 'triangle');
+                            } else {
+                                currentRound++;
+                                if (currentRound > totalRounds) {
+                                    finishTimer();
+                                    return;
+                                }
+                                timeLeft = workTime;
+                                playBeep(880, 0.4, 'sine');
+                            }
+                        } else {
+                            currentRound++;
+                            if (currentRound > totalRounds) {
+                                finishTimer();
+                                return;
+                            }
+                            isWorkPhase = true;
+                            timeLeft = workTime;
+                            playBeep(880, 0.4, 'sine');
+                        }
+                    }
+                } else {
+                    if (timeLeft > 0) {
+                        timeLeft--;
+                        if (timerMode === 'emom') {
+                            let secPerRound = parseInt(document.getElementById('emomSec').value) || 60;
+                            let mod = timeLeft % secPerRound;
+                            if (mod === 0 && timeLeft > 0) playBeep(880, 0.4, 'triangle');
+                            else if (mod <= 3 && mod > 0) playBeep(587, 0.1, 'sine');
+                        } else if (timerMode === 'amrap') {
+                            if (timeLeft <= 3 && timeLeft > 0) playBeep(587, 0.1, 'sine');
+                        }
+                    } else {
+                        finishTimer();
+                    }
+                }
+                updateTimerDisplay();
+            }, 1000);
+        }
+
+        function finishTimer() {
+            pauseTimer();
+            playBeep(880, 0.8, 'triangle');
+            alert('¡Tiempo completado! Excelente rutina completada 🔥');
+        }
+
+        function pauseTimer() {
+            isRunning = false;
+            clearInterval(timerInterval);
+            document.getElementById('startBtn').classList.remove('hidden');
+            document.getElementById('pauseBtn').classList.add('hidden');
+        }
+
+        function resetTimer() {
+            pauseTimer();
+            if (timerMode === 'interval') {
+                currentRound = 1;
+                isWorkPhase = true;
+                workTime = parseInt(document.getElementById('intWork')?.value) || 30;
+                timeLeft = workTime;
+            } else {
+                setTimerMode(timerMode);
+            }
+            updateTimerDisplay();
+        }
+
+        // Inicialización
+        window.onload = function() {
+            renderCalendar();
+            renderCards();
+            setTimerMode('emom');
+        };
+    </script>
+</body>
+</html>
