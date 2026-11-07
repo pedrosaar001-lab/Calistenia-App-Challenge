@@ -22,65 +22,66 @@
     </script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800;900&family=Cabinet+Grotesk:wght@800;900&display=swap');
         body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .font-heading { font-family: 'Cabinet Grotesk', 'Plus Jakarta Sans', sans-serif; }
     </style>
 </head>
 <body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col selection:bg-amber-500 selection:text-black">
 
     <!-- HEADER -->
-    <header class="bg-slate-900 border-b border-slate-800 sticky top-0 z-50 shadow-xl">
-        <div class="max-w-7xl mx-auto px-4 py-3 flex flex-wrap justify-between items-center gap-4">
+    <header class="bg-slate-900 border-b border-slate-800 sticky top-0 z-50 shadow-2xl">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex flex-wrap justify-between items-center gap-4">
             <div class="flex items-center space-x-3">
-                <div class="bg-gradient-to-tr from-amber-500 to-yellow-300 p-2.5 rounded-xl shadow-lg shadow-amber-500/20 text-slate-950">
-                    <i class="fa-solid fa-fire text-xl"></i>
+                <div class="bg-gradient-to-tr from-amber-500 to-yellow-300 p-3 rounded-2xl shadow-lg shadow-amber-500/20 text-slate-950">
+                    <i class="fa-solid fa-fire-flame-curved text-2xl"></i>
                 </div>
                 <div>
-                    <h1 class="text-xl font-extrabold tracking-tight bg-gradient-to-r from-amber-200 via-yellow-400 to-amber-500 bg-clip-text text-transparent">CALISTENIA PRO</h1>
-                    <p class="text-xs text-slate-400 font-medium">Reto de 28 Días • Sistema de Tarjetas & Timers</p>
+                    <h1 class="text-2xl sm:text-3xl font-heading font-black tracking-tight bg-gradient-to-r from-amber-200 via-yellow-400 to-amber-500 bg-clip-text text-transparent">CALISTENIA PRO</h1>
+                    <p class="text-xs text-slate-400 font-bold uppercase tracking-wider">Reto 28 Días • Sistema Interactivo</p>
                 </div>
             </div>
 
             <!-- CONTADOR DE RACHA Y PROGRESO -->
-            <div class="flex items-center space-x-4 bg-slate-950/80 px-4 py-2 rounded-2xl border border-slate-800">
+            <div class="flex items-center space-x-5 bg-slate-950 px-5 py-2.5 rounded-2xl border border-slate-800 shadow-inner">
                 <div class="text-center">
-                    <span class="block text-[10px] uppercase font-bold text-slate-400 tracking-wider">Racha Actual</span>
-                    <span id="streakCount" class="text-lg font-black text-amber-400">0 días 🔥</span>
+                    <span class="block text-[11px] uppercase font-black text-slate-400 tracking-widest">Racha Actual</span>
+                    <span id="streakCount" class="text-xl font-heading font-black text-amber-400">0 días 🔥</span>
                 </div>
-                <div class="h-8 w-px bg-slate-800"></div>
+                <div class="h-9 w-px bg-slate-800"></div>
                 <div class="text-center">
-                    <span class="block text-[10px] uppercase font-bold text-slate-400 tracking-wider">Completado</span>
-                    <span id="progressPercent" class="text-lg font-black text-emerald-400">0%</span>
+                    <span class="block text-[11px] uppercase font-black text-slate-400 tracking-widest">Completado</span>
+                    <span id="progressPercent" class="text-xl font-heading font-black text-emerald-400">0%</span>
                 </div>
             </div>
 
-            <!-- NAVEGACIÓN TABS -->
-            <nav class="flex space-x-1 bg-slate-950 p-1.5 rounded-xl border border-slate-800 w-full md:w-auto justify-center">
-                <button onclick="switchTab('calendar')" id="tab-calendar" class="tab-btn px-4 py-2 rounded-lg text-xs font-bold transition-all bg-amber-500 text-slate-950 shadow-md">
-                    <i class="fa-solid fa-calendar-days mr-1.5"></i> Calendario
+            <!-- NAVEGACIÓN DE PESTAÑAS -->
+            <nav class="flex space-x-2 bg-slate-950 p-1.5 rounded-2xl border border-slate-800 w-full md:w-auto justify-center">
+                <button onclick="switchTab('calendar')" id="tab-calendar" class="tab-btn px-5 py-2.5 rounded-xl text-sm font-black transition-all bg-amber-500 text-slate-950 shadow-md">
+                    <i class="fa-solid fa-calendar-days mr-2"></i> Calendario
                 </button>
-                <button onclick="switchTab('cards')" id="tab-cards" class="tab-btn px-4 py-2 rounded-lg text-xs font-bold transition-all text-slate-400 hover:text-white">
-                    <i class="fa-solid fa-layer-group mr-1.5"></i> Tarjetas (16)
+                <button onclick="switchTab('cards')" id="tab-cards" class="tab-btn px-5 py-2.5 rounded-xl text-sm font-black transition-all text-slate-400 hover:text-white">
+                    <i class="fa-solid fa-layer-group mr-2"></i> Tarjetas (16)
                 </button>
-                <button onclick="switchTab('timer')" id="tab-timer" class="tab-btn px-4 py-2 rounded-lg text-xs font-bold transition-all text-slate-400 hover:text-white">
-                    <i class="fa-solid fa-stopwatch mr-1.5"></i> Timer Pro
+                <button onclick="switchTab('timer')" id="tab-timer" class="tab-btn px-5 py-2.5 rounded-xl text-sm font-black transition-all text-slate-400 hover:text-white">
+                    <i class="fa-solid fa-stopwatch mr-2"></i> Timer Pro
                 </button>
             </nav>
         </div>
     </header>
 
-    <!-- MAIN CONTENT -->
-    <main class="flex-grow max-w-7xl mx-auto px-4 py-6 w-full">
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="flex-grow max-w-7xl mx-auto px-4 py-8 w-full">
 
-        <!-- VISTA 1: CALENDARIO 28 DÍAS -->
-        <section id="view-calendar" class="space-y-6">
-            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-gradient-to-r from-slate-900 to-slate-900/50 p-6 rounded-3xl border border-slate-800">
+        <!-- VISTA 1: CALENDARIO DE 28 DÍAS -->
+        <section id="view-calendar" class="space-y-8">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-gradient-to-r from-slate-900 via-slate-900 to-slate-950 p-6 sm:p-8 rounded-3xl border border-slate-800 shadow-xl">
                 <div>
-                    <h2 class="text-2xl font-black text-white">Cronograma de 28 Días</h2>
-                    <p class="text-sm text-slate-400 mt-1">Ciclos semanales estructurados (6 días de entrenamiento + 1 día de descanso activo). Haz clic en el círculo para marcar tu avance diario.</p>
+                    <h2 class="text-3xl font-heading font-black text-white tracking-wide">Cronograma de 28 Días</h2>
+                    <p class="text-base text-slate-300 mt-1 font-medium">6 días de entrenamiento intenso + 1 día de descanso activo por semana. Toca cualquier tarjeta para cargar su rutina en el temporizador.</p>
                 </div>
-                <button onclick="resetProgress()" class="text-xs bg-red-500/10 hover:bg-red-500/20 text-red-400 font-semibold px-4 py-2.5 rounded-xl border border-red-500/20 transition-all">
-                    <i class="fa-solid fa-rotate-right mr-1.5"></i> Reiniciar Progreso
+                <button onclick="resetProgress()" class="text-xs bg-red-500/10 hover:bg-red-500/20 text-red-400 font-black px-5 py-3 rounded-2xl border border-red-500/30 transition-all flex items-center gap-2">
+                    <i class="fa-solid fa-rotate-right"></i> Reiniciar Progreso
                 </button>
             </div>
 
@@ -90,20 +91,20 @@
             </div>
         </section>
 
-        <!-- VISTA 2: TARJETAS (BIBLIOTECA COMPLETA) -->
-        <section id="view-cards" class="hidden space-y-6">
-            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-slate-900 p-6 rounded-3xl border border-slate-800">
+        <!-- VISTA 2: BIBLIOTECA DE TARJETAS -->
+        <section id="view-cards" class="hidden space-y-8">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-slate-900 p-6 sm:p-8 rounded-3xl border border-slate-800 shadow-xl">
                 <div>
-                    <h2 class="text-2xl font-black text-white">Biblioteca de Rutinas</h2>
-                    <p class="text-sm text-slate-400 mt-1">Todas las tarjetas organizadas y discriminadas por color tal como en tus notas.</p>
+                    <h2 class="text-3xl font-heading font-black text-white tracking-wide">Biblioteca de Tarjetas</h2>
+                    <p class="text-base text-slate-300 mt-1 font-medium">Clasificadas por color. Haz clic en una tarjeta para ver sus ejercicios y activarla en el Timer.</p>
                 </div>
                 <!-- Filtros -->
                 <div class="flex flex-wrap gap-2">
-                    <button onclick="filterCards('all')" class="filter-btn px-3.5 py-1.5 rounded-xl text-xs font-bold bg-amber-500 text-slate-950">Todas</button>
-                    <button onclick="filterCards('yellow')" class="filter-btn px-3.5 py-1.5 rounded-xl text-xs font-bold bg-yellow-500/20 text-yellow-300 border border-yellow-500/30">Amarillas</button>
-                    <button onclick="filterCards('pink')" class="filter-btn px-3.5 py-1.5 rounded-xl text-xs font-bold bg-pink-500/20 text-pink-300 border border-pink-500/30">Rosas</button>
-                    <button onclick="filterCards('mint')" class="filter-btn px-3.5 py-1.5 rounded-xl text-xs font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">Menta</button>
-                    <button onclick="filterCards('blue')" class="filter-btn px-3.5 py-1.5 rounded-xl text-xs font-bold bg-blue-500/20 text-blue-300 border border-blue-500/30">Azules</button>
+                    <button onclick="filterCards('all')" class="filter-btn px-4 py-2 rounded-xl text-xs font-black bg-amber-500 text-slate-950">Todas</button>
+                    <button onclick="filterCards('yellow')" class="filter-btn px-4 py-2 rounded-xl text-xs font-black bg-yellow-500/20 text-yellow-300 border border-yellow-500/40">Amarillas</button>
+                    <button onclick="filterCards('pink')" class="filter-btn px-4 py-2 rounded-xl text-xs font-black bg-pink-500/20 text-pink-300 border border-pink-500/40">Rosas</button>
+                    <button onclick="filterCards('mint')" class="filter-btn px-4 py-2 rounded-xl text-xs font-black bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">Menta</button>
+                    <button onclick="filterCards('blue')" class="filter-btn px-4 py-2 rounded-xl text-xs font-black bg-blue-500/20 text-blue-300 border border-blue-500/40">Azules</button>
                 </div>
             </div>
 
@@ -113,54 +114,67 @@
             </div>
         </section>
 
-        <!-- VISTA 3: TIMER PRO (EMOM & AMRAP CON AUDIO) -->
-        <section id="view-timer" class="hidden max-w-2xl mx-auto space-y-6">
-            <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-2xl text-center space-y-6">
+        <!-- VISTA 3: TIMER PRO -->
+        <section id="view-timer" class="hidden max-w-3xl mx-auto space-y-8">
+            <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-10 shadow-2xl space-y-8 text-center">
                 <div>
-                    <h2 class="text-2xl font-black text-white">Temporizador Profesional</h2>
-                    <p class="text-sm text-slate-400 mt-1">Configurado con Web Audio API (bips en últimos 3 segundos y campana de cambio).</p>
+                    <h2 class="text-3xl font-heading font-black text-white tracking-wide">Temporizador Pro</h2>
+                    <p class="text-base text-slate-400 mt-1">Con soporte para EMOM, AMRAP e Intervalos (HIIT) con alertas sonoras.</p>
                 </div>
 
-                <!-- SELECTOR DE MODO -->
-                <div class="grid grid-cols-2 gap-3 bg-slate-950 p-2 rounded-2xl border border-slate-800">
-                    <button onclick="setTimerMode('emom')" id="mode-emom-btn" class="py-3 rounded-xl font-bold text-xs transition-all bg-amber-500 text-slate-950 shadow-md">
-                        <i class="fa-solid fa-stopwatch mr-1.5"></i> EMOM / Intervalos
+                <!-- SELECTOR DE MODO (3 MODOS: EMOM, AMRAP, INTERVALOS) -->
+                <div class="grid grid-cols-3 gap-2 bg-slate-950 p-2 rounded-2xl border border-slate-800">
+                    <button onclick="setTimerMode('emom')" id="mode-emom-btn" class="py-3 rounded-xl font-black text-xs sm:text-sm transition-all bg-amber-500 text-slate-950 shadow-md">
+                        EMOM
                     </button>
-                    <button onclick="setTimerMode('amrap')" id="mode-amrap-btn" class="py-3 rounded-xl font-bold text-xs transition-all text-slate-400 hover:text-white">
-                        <i class="fa-solid fa-hourglass-half mr-1.5"></i> AMRAP / Cronómetro
+                    <button onclick="setTimerMode('amrap')" id="mode-amrap-btn" class="py-3 rounded-xl font-black text-xs sm:text-sm transition-all text-slate-400 hover:text-white">
+                        AMRAP
+                    </button>
+                    <button onclick="setTimerMode('interval')" id="mode-interval-btn" class="py-3 rounded-xl font-black text-xs sm:text-sm transition-all text-slate-400 hover:text-white">
+                        Intervalos
                     </button>
                 </div>
 
-                <!-- CONTROLES DE CONFIGURACIÓN -->
-                <div id="timerConfig" class="grid grid-cols-2 gap-4 bg-slate-950/50 p-4 rounded-2xl border border-slate-800 text-left">
-                    <div>
-                        <label id="labelConfig1" class="block text-xs font-bold text-slate-400 mb-1">Minutos Totales (EMOM)</label>
-                        <input type="number" id="inputVal1" value="10" min="1" max="60" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-2.5 text-white font-bold focus:outline-none focus:border-amber-500">
-                    </div>
-                    <div>
-                        <label id="labelConfig2" class="block text-xs font-bold text-slate-400 mb-1">Duración Minuto (seg)</label>
-                        <input type="number" id="inputVal2" value="60" min="10" max="120" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-2.5 text-white font-bold focus:outline-none focus:border-amber-500">
-                    </div>
+                <!-- CONTROLES DINÁMICOS DE CONFIGURACIÓN -->
+                <div id="timerConfig" class="grid grid-cols-2 sm:grid-cols-3 gap-4 bg-slate-950/60 p-5 rounded-2xl border border-slate-800 text-left">
+                    <!-- Inyectado por JS según el modo -->
                 </div>
 
-                <!-- DISPLAY PRINCIPAL DEL TIMER -->
-                <div class="py-8 bg-slate-950 rounded-3xl border border-slate-800 relative overflow-hidden shadow-inner">
-                    <div id="timerDisplay" class="text-6xl sm:text-7xl font-black font-mono tracking-wider text-amber-400">10:00</div>
-                    <div id="timerSubDisplay" class="text-sm font-bold text-slate-400 mt-2">Listo para iniciar</div>
-                    <div id="roundDisplay" class="text-xs font-bold text-emerald-400 mt-1 uppercase tracking-widest">Minuto 1 / 10</div>
+                <!-- DISPLAY PRINCIPAL -->
+                <div class="py-10 bg-slate-950 rounded-3xl border border-slate-800 relative overflow-hidden shadow-inner space-y-2">
+                    <div id="timerDisplay" class="text-6xl sm:text-8xl font-heading font-black tracking-widest text-amber-400">10:00</div>
+                    <div id="timerSubDisplay" class="text-base font-bold text-slate-300 uppercase tracking-wider">Listo para iniciar</div>
+                    <div id="roundDisplay" class="text-sm font-black text-emerald-400 uppercase tracking-widest">Minuto 1 / 10</div>
                 </div>
 
                 <!-- BOTONES DE CONTROL -->
                 <div class="flex items-center justify-center gap-4">
-                    <button onclick="startTimer()" id="startBtn" class="bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black px-8 py-4 rounded-2xl shadow-lg shadow-emerald-500/20 transition-all flex items-center gap-2">
-                        <i class="fa-solid fa-play text-lg"></i> INICIAR
+                    <button onclick="startTimer()" id="startBtn" class="bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-heading font-black px-10 py-4 text-lg rounded-2xl shadow-xl shadow-emerald-500/20 transition-all flex items-center gap-3">
+                        <i class="fa-solid fa-play"></i> INICIAR
                     </button>
-                    <button onclick="pauseTimer()" id="pauseBtn" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-black px-6 py-4 rounded-2xl shadow-lg shadow-amber-500/20 transition-all hidden">
-                        <i class="fa-solid fa-pause text-lg"></i> PAUSAR
+                    <button onclick="pauseTimer()" id="pauseBtn" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-heading font-black px-8 py-4 text-lg rounded-2xl shadow-xl shadow-amber-500/20 transition-all hidden">
+                        <i class="fa-solid fa-pause"></i> PAUSAR
                     </button>
                     <button onclick="resetTimer()" class="bg-slate-800 hover:bg-slate-700 text-white font-black px-6 py-4 rounded-2xl transition-all">
-                        <i class="fa-solid fa-rotate-left"></i>
+                        <i class="fa-solid fa-rotate-left text-lg"></i>
                     </button>
+                </div>
+            </div>
+
+            <!-- SECCIÓN DE RUTINA SELECCIONADA BAJO EL TIMER -->
+            <div id="activeRoutineCard" class="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-xl hidden">
+                <div class="flex items-center justify-between border-b border-slate-800 pb-4 mb-4">
+                    <div class="flex items-center space-x-3">
+                        <span id="activeRoutineTag" class="text-xs font-black uppercase px-3 py-1 rounded-xl bg-amber-500/20 text-amber-300">Rutina Seleccionada</span>
+                        <h3 id="activeRoutineTitle" class="text-xl font-heading font-black text-white">Nombre de la Tarjeta</h3>
+                    </div>
+                    <button onclick="clearActiveRoutine()" class="text-slate-500 hover:text-slate-300 text-sm font-bold">
+                        <i class="fa-solid fa-xmark text-lg"></i>
+                    </button>
+                </div>
+                <div class="bg-slate-950 p-5 rounded-2xl border border-slate-800">
+                    <h4 class="text-xs font-black uppercase text-slate-400 mb-2 tracking-wider">Lista de Ejercicios:</h4>
+                    <p id="activeRoutineDesc" class="text-base sm:text-lg font-mono text-amber-200/90 whitespace-pre-line leading-relaxed font-bold"></p>
                 </div>
             </div>
         </section>
@@ -168,87 +182,86 @@
     </main>
 
     <!-- FOOTER -->
-    <footer class="bg-slate-900 border-t border-slate-800 py-6 mt-12 text-center text-xs text-slate-500 font-medium">
-        Reto Calistenia Pro • Diseñado para alto rendimiento y persistencia total con LocalStorage 🚀
+    <footer class="bg-slate-900 border-t border-slate-800 py-6 mt-12 text-center text-xs text-slate-500 font-bold uppercase tracking-wider">
+        Reto Calistenia Pro • Persistencia LocalStorage • Web Audio API
     </footer>
 
-    <!-- SCRIPT DE LA APLICACIÓN -->
+    <!-- SCRIPT PRINCIPAL -->
     <script>
-        // --- BASE DE DATOS DE LAS 16 TARJETAS ACTUALIZADAS (FOTO DETALLADA) ---
+        // --- BASE DE DATOS DE TARJETAS (CON ERRORES ORTOGRÁFICOS Y GRAMATICALES CORREGIDOS) ---
         const cardsData = [
             // AMARILLAS
-            { id: 1, color: 'yellow', title: 'Peso Rusa Tabata', desc: '10 giros cabeza\10 mazos hombro\10 bicep\10 triceps\10 giros tronco\n* 6 veces' },
-            { id: 2, color: 'yellow', title: '30 Veces', desc: '1. Burpee Marina\n2. Sentadillas\n3. Salto payaso' },
-            { id: 3, color: 'yellow', title: 'Amrap 10 min', desc: '5 burpees\n5 lagartijas\n5 caminadores\n5 sentadillas\n5 sentadilla salta' },
-            { id: 4, color: 'yellow', title: 'Amrap 10 min', desc: '5 sentadilla salta\n10 tijeras\n5 sentadilla abierta\n10 arqueas\n10 toques rodilla' },
-            { id: 5, color: 'yellow', title: 'Escaleras', desc: '10 flexiones Tyson\n10 sentadillas\nRegresivo hasta 0' },
-            { id: 6, color: 'yellow', title: 'Escaleras * 5', desc: '5 burpee - sentadilla resorte - salto\n1. Burpee - sentadilla\nPuente glúteo' },
+            { id: 1, color: 'yellow', title: 'Peso Rusa Tabata', desc: '40 Giros sobre la cabeza\n40 Mazazos\n10 Biceps\n10 Tríceps\n10 Giros de tronco\n* Repetir 6 veces' },
+            { id: 2, color: 'yellow', title: '30 Veces', desc: '1. Burpee Marina\n2. Sentadillas\n3. Salto payaso\n* Realizar 30 repeticiones de cada uno' },
+            { id: 3, color: 'yellow', title: 'AMRAP 10 Minutos', desc: '5 Burpees\n5 Lagartijas\n5 Caminadores\n5 Sentadillas\n5 Sentadillas con salto' },
+            { id: 4, color: 'yellow', title: 'AMRAP 10 Minutos (Piernas y Core)', desc: '5 Sentadillas con salto\n10 Zancadas\n5 Sentadillas abiertas\n10 Arqueos\n10 Toques de rodilla' },
+            { id: 5, color: 'yellow', title: 'Escalera Regresiva', desc: '10 Flexiones Tyson\n10 Sentadillas\nRegresivo desde 10 hasta 1' },
+            { id: 6, color: 'yellow', title: 'Escalera x 5', desc: '5 Burpee - Sentadilla resorte - Salto\n1 Burpee - Sentadilla\nPuente de glúteo' },
 
             // ROSAS
-            { id: 7, color: 'pink', title: 'Amrap * 10 min', desc: '20 sentadillas\n15 lagartijas\n16 boveda inversa\n40s elevación rodilla\n30s sentadilla cosack\n40s payasos' },
-            { id: 8, color: 'pink', title: '300 Flexiones', desc: '20 x 5 Tayson\n10 x 5 Explosivas\nSin límite tiempo' },
-            { id: 9, color: 'pink', title: 'Rutina Parque', desc: '2 Dominadas\n4 Flexiones\n2 Diamante\n[2-4-2] +2\n[3-5-3]\n[4-6-4]' },
-            { id: 10, color: 'pink', title: 'Reto Planchas', desc: '30s plancha lateral\n30s plancha levantar\n30s plancha frontal\n30s plancha patada\n30s plancha lateral crunch!\n* 4 rondas' },
-            { id: 11, color: 'pink', title: 'Escalera', desc: '20 flexion - 1 sit-up\n19 flexion - 2 sit-up\n...\n02 flexion - 19 sit-up\n01 flexion - 20 sit-up' },
-            { id: 12, color: 'pink', title: 'Abdomen Reto', desc: '10 tomollar inverso\n10 chalaxias\n10 salto "L"\n15 v-sit-extendido\nRepetir * 4' },
+            { id: 7, color: 'pink', title: 'AMRAP x 10 Minutos', desc: '20 Sentadillas\n15 Lagartijas\n16 Bóvedas inversas\n40s Elevación de rodillas\n30s Sentadilla Cossack\n40s Saltos de payaso' },
+            { id: 8, color: 'pink', title: '300 Flexiones', desc: '20 x 5 Flexiones Tyson\n10 x 5 Flexiones explosivas\n(Sin límite de tiempo)' },
+            { id: 9, color: 'pink', title: 'Rutina de Parque', desc: '2 Dominadas\n4 Flexiones\n2 Flexiones diamante\n[2-4-2] +2\n[3-5-3]\n[4-6-4]' },
+            { id: 10, color: 'pink', title: 'Reto Planchas', desc: '30s Plancha lateral izquierda\n30s Plancha levantar brazo/pierna\n30s Plancha frontal\n30s Plancha con patada\n30s Plancha lateral crunch!\n* Realizar 4 rondas' },
+            { id: 11, color: 'pink', title: 'Escalera Cruzada Flexión / Sit-up', desc: '20 Flexiones - 1 Sit-up\n19 Flexiones - 2 Sit-ups\n...\n02 Flexiones - 19 Sit-ups\n01 Flexión - 20 Sit-ups' },
+            { id: 12, color: 'pink', title: 'Reto de Abdomen', desc: '10 Escalador inversos\n10 Chalacas\n10 Saltos en "L"\n15 V-sit extendidos\n* Repetir 4 series' },
 
             // MENTA / VERDE
-            { id: 13, color: 'mint', title: 'Amrap 10 min', desc: '5 sentadillas duende\n10 remos\n10 peso muerto rumano\n10 flexiones' },
-            { id: 14, color: 'mint', title: 'Emom Isométricos', desc: '✓ Sentadilla Isométrica\n✓ Plancha\n✓ Flexión Isométrica\n* 12 min!' },
-            { id: 15, color: 'mint', title: 'Reto Trend Superior', desc: '15 flexiones - 1 dip\n14 flexiones - 2 dip\n...\n02 flexiones - 14 dip\n01 flexion - 15 dip' },
-            { id: 16, color: 'mint', title: 'Piernas - Tabata', desc: '30 Isométrico\n25 sentadillas\n20 zancadas\n15 arqueas\n10 peso muerto\n5 saltos payaso\n* 4 series' },
+            { id: 13, color: 'mint', title: 'AMRAP 10 Minutos', desc: '5 Sentadillas Duende\n10 Remos\n10 Peso muerto rumano\n10 Flexiones' },
+            { id: 14, color: 'mint', title: 'EMOM Isométricos (12 Min)', desc: '✓ Sentadilla isométrica\n✓ Plancha abdominal\n✓ Flexión isométrica\n* Mantener durante 12 minutos' },
+            { id: 15, color: 'mint', title: 'Reto Tren Superior', desc: '15 Flexiones - 1 Fondos (Dip)\n14 Flexiones - 2 Fondos (Dips)\n...\n02 Flexiones - 14 Fondos (Dips)\n01 Flexión - 15 Fondos (Dips)' },
+            { id: 16, color: 'mint', title: 'Piernas - Tabata', desc: '30s Isométrico de sentadilla\n25 Sentadillas\n20 Zancadas\n15 Arqueos\n10 Peso muerto\n5 Saltos de payaso\n* Realizar 4 series' },
 
             // AZULES
-            { id: 17, color: 'blue', title: 'Hiit - Tabata', desc: '20 zancada lineal\n20 zancada lateral\n20 flexion-toque hombro\n20 abdominales - toque rodilla\n* 5 series' },
-            { id: 18, color: 'blue', title: 'Ascenso - Gore', desc: '5 - escalador-deslizar\n5 - escalador-doble\n5 - escalador-pica\n5 - escalador-abrir\n6 - flexiones spider\n* 4 sesiones Tabata' },
-            { id: 19, color: 'blue', title: 'Emom * 10 min', desc: '5 burpees\n5 sentadilla resorte\n5 sentadilla payasos\n5 medio burpees\n5 saltos tijera' },
-            { id: 20, color: 'blue', title: 'Escalera', desc: '2 fundos\n10 flexiones\nHasta llegar a 0' },
-            { id: 21, color: 'blue', title: 'Reto Base Lagartijas', desc: '5 Normales\n5 Diamantes\n5 Arqueas x lado\n5 Tayson\n3 Picas\n* 2' },
-            { id: 22, color: 'blue', title: 'Emom x 12 min', desc: '20 flexiones\n20 sentadillas\n10 elevaciones\n40 escaladores' }
+            { id: 17, color: 'blue', title: 'HIIT - Tabata', desc: '20 Zancadas lineales\n20 Zancadas laterales\n20 Flexiones con toque de hombro\n20 Abdominales con toque de rodilla\n* Realizar 5 series' },
+            { id: 18, color: 'blue', title: 'Ascenso - Gore (Tabata)', desc: '5 Escaladores con deslizamiento\n5 Escaladores dobles\n5 Escaladores en pica\n5 Escaladores abiertos\n6 Flexiones spider\n* Realizar 4 sesiones Tabata' },
+            { id: 19, color: 'blue', title: 'EMOM x 10 Minutos', desc: '5 Burpees\n5 Sentadillas resorte\n5 Sentadillas payaso\n5 Medios burpees\n5 Saltos de tijera' },
+            { id: 20, color: 'blue', title: 'Escalera de Fondos', desc: '2 Fondos\n10 Flexiones\nDisminuir gradualmente hasta llegar a 0' },
+            { id: 21, color: 'blue', title: 'Reto Base Lagartijas', desc: '5 Flexiones normales\n5 Flexiones diamante\n5 Flexiones arqueadas por lado\n5 Flexiones Tyson\n3 Flexiones en pica\n* Repetir 2 series' },
+            { id: 22, color: 'blue', title: 'EMOM x 12 Minutos', desc: '20 Flexiones\n20 Sentadillas\n10 Elevaciones de piernas\n40 Escaladores' }
         ];
 
-        // --- CALENDARIO 28 DÍAS (4 SEMANAS) ---
-        // Mapeando las tarjetas a lo largo del mes con 1 día de descanso activo cada 7 días
+        // --- ESTRUCTURA DEL CALENDARIO ---
         const calendarStructure = [
             { week: 1, days: [
-                { day: 1, title: 'Día 1: Fuerza Amarilla', cardId: 1, rest: false },
-                { day: 2, title: 'Día 2: Furia Rosa', cardId: 7, rest: false },
-                { day: 3, title: 'Día 3: Menta Explosiva', cardId: 13, rest: false },
-                { day: 4, title: 'Día 4: Alta Intensidad Azul', cardId: 17, rest: false },
-                { day: 5, title: 'Día 5: Reto Planchas & Core', cardId: 10, rest: false },
-                { day: 6, title: 'Día 6: Escaleras Dinámicas', cardId: 5, rest: false },
+                { day: 1, title: 'Día 1: Fuerza Amarilla', cardId: 1 },
+                { day: 2, title: 'Día 2: Furia Rosa', cardId: 7 },
+                { day: 3, title: 'Día 3: Menta Explosiva', cardId: 13 },
+                { day: 4, title: 'Día 4: Alta Intensidad Azul', cardId: 17 },
+                { day: 5, title: 'Día 5: Reto Planchas & Core', cardId: 10 },
+                { day: 6, title: 'Día 6: Escaleras Dinámicas', cardId: 5 },
                 { day: 7, title: 'Día 7: Descanso Activo 🌿', cardId: null, rest: true }
             ]},
             { week: 2, days: [
-                { day: 8, title: 'Día 8: 300 Flexiones Focus', cardId: 8, rest: false },
-                { day: 9, title: 'Día 9: EMOM Isométrico', cardId: 14, rest: false },
-                { day: 10, title: 'Día 10: Rutina Parque Pro', cardId: 9, rest: false },
-                { day: 11, title: 'Día 11: Ascenso Gore', cardId: 18, rest: false },
-                { day: 12, title: 'Día 12: Reto Base Lagartijas', cardId: 21, rest: false },
-                { day: 13, title: 'Día 13: Tabata Piernas', cardId: 16, rest: false },
+                { day: 8, title: 'Día 8: 300 Flexiones Focus', cardId: 8 },
+                { day: 9, title: 'Día 9: EMOM Isométrico', cardId: 14 },
+                { day: 10, title: 'Día 10: Rutina Parque Pro', cardId: 9 },
+                { day: 11, title: 'Día 11: Ascenso Gore', cardId: 18 },
+                { day: 12, title: 'Día 12: Reto Base Lagartijas', cardId: 21 },
+                { day: 13, title: 'Día 13: Tabata Piernas', cardId: 16 },
                 { day: 14, title: 'Día 14: Descanso Activo 🌿', cardId: null, rest: true }
             ]},
             { week: 3, days: [
-                { day: 15, title: 'Día 15: Escalera de Fuego', cardId: 11, rest: false },
-                { day: 16, title: 'Día 16: EMOM 10 Minutos', cardId: 19, rest: false },
-                { day: 17, title: 'Día 17: Reto Trend Superior', cardId: 15, rest: false },
-                { day: 18, title: 'Día 18: Abdomen Extremo', cardId: 12, rest: false },
-                { day: 19, title: 'Día 19: EMOM 12 Minutos', cardId: 22, rest: false },
-                { day: 20, title: 'Día 20: Súper AMRAP', cardId: 3, rest: false },
+                { day: 15, title: 'Día 15: Escalera Cruzada', cardId: 11 },
+                { day: 16, title: 'Día 16: EMOM 10 Minutos', cardId: 19 },
+                { day: 17, title: 'Día 17: Reto Tren Superior', cardId: 15 },
+                { day: 18, title: 'Día 18: Abdomen Extremo', cardId: 12 },
+                { day: 19, title: 'Día 19: EMOM 12 Minutos', cardId: 22 },
+                { day: 20, title: 'Día 20: Súper AMRAP', cardId: 3 },
                 { day: 21, title: 'Día 21: Descanso Activo 🌿', cardId: null, rest: true }
             ]},
             { week: 4, days: [
-                { day: 22, title: 'Día 22: Escaleras Cortas', cardId: 20, rest: false },
-                { day: 23, title: 'Día 23: Bloque Amarillo 2', cardId: 4, rest: false },
-                { day: 24, title: 'Día 24: Escalera 30 Veces', cardId: 2, rest: false },
-                { day: 25, title: 'Día 25: Escaleras Finales', cardId: 6, rest: false },
-                { day: 26, title: 'Día 26: Planchas Extreman', cardId: 10, rest: false },
-                { day: 27, title: 'Día 27: Gran Final AMRAP', cardId: 7, rest: false },
+                { day: 22, title: 'Día 22: Escalera Fondos', cardId: 20 },
+                { day: 23, title: 'Día 23: Bloque Piernas & Core', cardId: 4 },
+                { day: 24, title: 'Día 24: Rutina 30 Veces', cardId: 2 },
+                { day: 25, title: 'Día 25: Escaleras x 5', cardId: 6 },
+                { day: 26, title: 'Día 26: Planchas Extremas', cardId: 10 },
+                { day: 27, title: 'Día 27: Gran Final AMRAP', cardId: 7 },
                 { day: 28, title: 'Día 28: Consolidación & Logro 🏆', cardId: null, rest: true }
             ]}
         ];
 
-        // --- GESTIÓN DE ESTADO Y LOCALSTORAGE ---
+        // --- ESTADO LOCALSTORAGE ---
         let completedDays = JSON.parse(localStorage.getItem('calisthenics_completed') || '{}');
 
         function saveProgress() {
@@ -256,14 +269,15 @@
             updateStats();
         }
 
-        function toggleDay(dayNum) {
+        function toggleDay(dayNum, event) {
+            event.stopPropagation(); // Evitar abrir el timer al hacer clic en el checkbox
             completedDays[dayNum] = !completedDays[dayNum];
             saveProgress();
             renderCalendar();
         }
 
         function resetProgress() {
-            if (confirm('¿Estás seguro de reiniciar todo tu progreso y racha del mes?')) {
+            if (confirm('¿Deseas reiniciar tu progreso y contador de racha?')) {
                 completedDays = {};
                 saveProgress();
                 renderCalendar();
@@ -271,13 +285,10 @@
         }
 
         function updateStats() {
-            const totalDays = 28;
             const completedCount = Object.values(completedDays).filter(Boolean).length;
-            const percent = Math.round((completedCount / totalDays) * 100);
-            
+            const percent = Math.round((completedCount / 28) * 100);
             document.getElementById('progressPercent').innerText = percent + '%';
             
-            // Cálculo de racha consecutiva
             let streak = 0;
             for (let i = 1; i <= 28; i++) {
                 if (completedDays[i]) streak++;
@@ -285,257 +296,3 @@
             }
             document.getElementById('streakCount').innerText = streak + ' días 🔥';
         }
-
-        // --- RENDERIZAR CALENDARIO ---
-        function renderCalendar() {
-            const container = document.getElementById('calendarWeeksContainer');
-            container.innerHTML = '';
-
-            calendarStructure.forEach(w => {
-                let weekHtml = `
-                    <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 space-y-4">
-                        <h3 class="text-lg font-black text-amber-400 flex items-center gap-2">
-                            <i class="fa-solid fa-flag-checkered"></i> Semana ${w.week}
-                        </h3>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-7 gap-4">
-                `;
-
-                w.days.forEach(d => {
-                    const isDone = !!completedDays[d.day];
-                    let cardObj = d.cardId ? cardsData.find(c => c.id === d.cardId) : null;
-                    let cardColorClass = 'border-slate-800 bg-slate-950/50';
-                    let badgeColor = 'bg-slate-800 text-slate-300';
-
-                    if (cardObj) {
-                        if (cardObj.color === 'yellow') { cardColorClass = 'border-yellow-500/40 bg-yellow-500/5 hover:border-yellow-500'; badgeColor = 'bg-yellow-500/20 text-yellow-300'; }
-                        else if (cardObj.color === 'pink') { cardColorClass = 'border-pink-500/40 bg-pink-500/5 hover:border-pink-500'; badgeColor = 'bg-pink-500/20 text-pink-300'; }
-                        else if (cardObj.color === 'mint') { cardColorClass = 'border-emerald-500/40 bg-emerald-500/5 hover:border-emerald-500'; badgeColor = 'bg-emerald-500/20 text-emerald-300'; }
-                        else if (cardObj.color === 'blue') { cardColorClass = 'border-blue-500/40 bg-blue-500/5 hover:border-blue-500'; badgeColor = 'bg-blue-500/20 text-blue-300'; }
-                    }
-
-                    if (d.rest) {
-                        cardColorClass = 'border-purple-500/30 bg-purple-500/5';
-                        badgeColor = 'bg-purple-500/20 text-purple-300';
-                    }
-
-                    weekHtml += `
-                        <div class="border rounded-2xl p-4 flex flex-col justify-between transition-all ${cardColorClass} ${isDone ? 'opacity-75 ring-2 ring-emerald-500/50 bg-emerald-950/20' : ''}">
-                            <div class="space-y-2">
-                                <div class="flex justify-between items-center">
-                                    <span class="text-xs font-black px-2 py-0.5 rounded-lg ${badgeColor}">Día ${d.day}</span>
-                                    <button onclick="toggleDay(${d.day})" class="w-7 h-7 rounded-xl border flex items-center justify-center transition-all ${isDone ? 'bg-emerald-500 border-emerald-400 text-slate-950 font-bold' : 'border-slate-700 bg-slate-900 hover:border-amber-400'}">
-                                        ${isDone ? '<i class="fa-solid fa-check"></i>' : ''}
-                                    </button>
-                                </div>
-                                <h4 class="text-xs font-bold text-white leading-snug">${d.title}</h4>
-                                ${cardObj ? `<p class="text-[11px] text-slate-400 whitespace-pre-line font-mono mt-2">${cardObj.desc}</p>` : '<p class="text-[11px] text-purple-300 italic mt-2">Día libre de recuperación, estiramientos o movilidad.</p>'}
-                            </div>
-                        </div>
-                    `;
-                });
-
-                weekHtml += `</div></div>`;
-                container.innerHTML += weekHtml;
-            });
-            updateStats();
-        }
-
-        // --- RENDERIZAR TARJETAS ---
-        function renderCards(filter = 'all') {
-            const grid = document.getElementById('cardsGrid');
-            grid.innerHTML = '';
-
-            const filtered = filter === 'all' ? cardsData : cardsData.filter(c => c.color === filter);
-
-            filtered.forEach(c => {
-                let borderCol = 'border-yellow-500/30 bg-yellow-500/5';
-                let tagCol = 'bg-yellow-500/20 text-yellow-300';
-                if (c.color === 'pink') { borderCol = 'border-pink-500/30 bg-pink-500/5'; tagCol = 'bg-pink-500/20 text-pink-300'; }
-                else if (c.color === 'mint') { borderCol = 'border-emerald-500/30 bg-emerald-500/5'; tagCol = 'bg-emerald-500/20 text-emerald-300'; }
-                else if (c.color === 'blue') { borderCol = 'border-blue-500/30 bg-blue-500/5'; tagCol = 'bg-blue-500/20 text-blue-300'; }
-
-                grid.innerHTML += `
-                    <div class="border rounded-3xl p-5 flex flex-col justify-between ${borderCol} shadow-xl hover:scale-[1.02] transition-transform">
-                        <div class="space-y-3">
-                            <div class="flex justify-between items-center">
-                                <span class="text-[10px] uppercase font-black px-2.5 py-1 rounded-xl ${tagCol}">Tarjeta #${c.id}</span>
-                                <i class="fa-solid fa-dumbbell text-slate-600 text-sm"></i>
-                            </div>
-                            <h3 class="text-base font-black text-white">${c.title}</h3>
-                            <div class="bg-slate-950/60 p-3.5 rounded-2xl border border-slate-800/80">
-                                <p class="text-xs text-slate-300 whitespace-pre-line font-mono leading-relaxed">${c.desc}</p>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            });
-        }
-
-        function filterCards(color) {
-            document.querySelectorAll('.filter-btn').forEach(btn => {
-                btn.className = "filter-btn px-3.5 py-1.5 rounded-xl text-xs font-bold bg-slate-900 text-slate-400 border border-slate-800";
-            });
-            event.target.className = "filter-btn px-3.5 py-1.5 rounded-xl text-xs font-bold bg-amber-500 text-slate-950";
-            renderCards(color);
-        }
-
-        // --- NAVEGACIÓN TABS ---
-        function switchTab(viewName) {
-            ['calendar', 'cards', 'timer'].forEach(v => {
-                document.getElementById(`view-${v}`).classList.add('hidden');
-                document.getElementById(`tab-${v}`).className = "tab-btn px-4 py-2 rounded-lg text-xs font-bold transition-all text-slate-400 hover:text-white";
-            });
-            document.getElementById(`view-${viewName}`).classList.remove('hidden');
-            document.getElementById(`tab-${viewName}`).className = "tab-btn px-4 py-2 rounded-lg text-xs font-bold transition-all bg-amber-500 text-slate-950 shadow-md";
-        }
-
-        // --- WEBAUDIO API & TEMPORIZADOR PROFESIONAL ---
-        let audioCtx = null;
-        function initAudio() {
-            if (!audioCtx) {
-                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            }
-        }
-
-        function playBeep(freq = 440, duration = 0.15, type = 'sine') {
-            try {
-                initAudio();
-                if (audioCtx.state === 'suspended') audioCtx.resume();
-                const osc = audioCtx.createOscillator();
-                const gain = audioCtx.createGain();
-                osc.type = type;
-                osc.frequency.value = freq;
-                gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
-                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
-                osc.connect(gain);
-                gain.connect(audioCtx.destination);
-                osc.start();
-                osc.stop(audioCtx.currentTime + duration);
-            } catch(e) { console.log('Audio error:', e); }
-        }
-
-        let timerMode = 'emom';
-        let timerInterval = null;
-        let timeLeft = 600;
-        let totalDuration = 600;
-        let currentRound = 1;
-        let maxRounds = 10;
-        let isRunning = false;
-
-        function setTimerMode(mode) {
-            timerMode = mode;
-            pauseTimer();
-            document.getElementById('mode-emom-btn').className = mode === 'emom' ? "py-3 rounded-xl font-bold text-xs transition-all bg-amber-500 text-slate-950 shadow-md" : "py-3 rounded-xl font-bold text-xs transition-all text-slate-400 hover:text-white";
-            document.getElementById('mode-amrap-btn').className = mode === 'amrap' ? "py-3 rounded-xl font-bold text-xs transition-all bg-amber-500 text-slate-950 shadow-md" : "py-3 rounded-xl font-bold text-xs transition-all text-slate-400 hover:text-white";
-            
-            if (mode === 'emom') {
-                document.getElementById('labelConfig1').innerText = "Minutos Totales (EMOM)";
-                document.getElementById('labelConfig2').innerText = "Duración Minuto (seg)";
-                document.getElementById('inputVal1').value = "10";
-                document.getElementById('inputVal2').value = "60";
-                totalDuration = 600;
-                timeLeft = 600;
-                maxRounds = 10;
-            } else {
-                document.getElementById('labelConfig1').innerText = "Tiempo AMRAP (Minutos)";
-                document.getElementById('labelConfig2').innerText = "Aviso Mitad (0=No)";
-                document.getElementById('inputVal1').value = "10";
-                document.getElementById('inputVal2').value = "0";
-                totalDuration = 600;
-                timeLeft = 600;
-            }
-            updateTimerDisplay();
-        }
-
-        function updateTimerDisplay() {
-            let mins = Math.floor(timeLeft / 60);
-            let secs = timeLeft % 60;
-            document.getElementById('timerDisplay').innerText = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-            
-            if (timerMode === 'emom') {
-                let secPerRound = parseInt(document.getElementById('inputVal2').value) || 60;
-                let currentMinuteSec = (totalDuration - timeLeft) % secPerRound;
-                let timeInCurrentMin = secPerRound - currentMinuteSec;
-                let r = Math.floor((totalDuration - timeLeft) / secPerRound) + 1;
-                if (r > maxRounds) r = maxRounds;
-                document.getElementById('roundDisplay').innerText = `Minuto ${r} / ${maxRounds} (Restante Min: ${timeInCurrentMin}s)`;
-            } else {
-                document.getElementById('roundDisplay').innerText = `Modo AMRAP / Cronómetro Regresivo`;
-            }
-        }
-
-        function startTimer() {
-            if (isRunning) return;
-            
-            if (timeLeft === totalDuration) {
-                let v1 = parseInt(document.getElementById('inputVal1').value) || 10;
-                let v2 = parseInt(document.getElementById('inputVal2').value) || 60;
-                if (timerMode === 'emom') {
-                    maxRounds = v1;
-                    totalDuration = v1 * v2;
-                    timeLeft = totalDuration;
-                } else {
-                    totalDuration = v1 * 60;
-                    timeLeft = totalDuration;
-                }
-            }
-
-            isRunning = true;
-            document.getElementById('startBtn').classList.add('hidden');
-            document.getElementById('pauseBtn').classList.remove('hidden');
-
-            timerInterval = setInterval(() => {
-                if (timeLeft > 0) {
-                    timeLeft--;
-                    
-                    // Lógica de sonido EMOM por cada minuto o últimos 3 segundos
-                    if (timerMode === 'emom') {
-                        let secPerRound = parseInt(document.getElementById('inputVal2').value) || 60;
-                        let mod = timeLeft % secPerRound;
-                        if (mod === 0 && timeLeft > 0) {
-                            playBeep(880, 0.4, 'triangle'); // Campana inicio de minuto
-                        } else if (mod <= 3 && mod > 0) {
-                            playBeep(587.33, 0.1, 'sine'); // Bips cuenta regresiva 3, 2, 1
-                        }
-                    } else {
-                        if (timeLeft <= 3 && timeLeft > 0) {
-                            playBeep(587.33, 0.1, 'sine');
-                        } else if (timeLeft === 0) {
-                            playBeep(880, 0.6, 'triangle');
-                        }
-                    }
-
-                    updateTimerDisplay();
-                } else {
-                    pauseTimer();
-                    playBeep(880, 0.8, 'triangle');
-                    alert('¡Tiempo completado! Gran sesión de entrenamiento 🔥');
-                }
-            }, 1000);
-        }
-
-        function pauseTimer() {
-            isRunning = false;
-            clearInterval(timerInterval);
-            document.getElementById('startBtn').classList.remove('hidden');
-            document.getElementById('pauseBtn').classList.add('hidden');
-        }
-
-        function resetTimer() {
-            pauseTimer();
-            let v1 = parseInt(document.getElementById('inputVal1').value) || 10;
-            let v2 = parseInt(document.getElementById('inputVal2').value) || 60;
-            totalDuration = timerMode === 'emom' ? v1 * v2 : v1 * 60;
-            timeLeft = totalDuration;
-            updateTimerDisplay();
-        }
-
-        // Inicialización al cargar la página
-        window.onload = function() {
-            renderCalendar();
-            renderCards();
-            updateTimerDisplay();
-        };
-    </script>
-</body>
-</html>
